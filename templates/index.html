@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Shortener</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+            box-sizing: border-box;
+        }
+        h1 { color: #333; margin-top: 0; margin-bottom: 25px; font-size: 26px; }
+        input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus { border-color: #667eea; }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+        button:hover { background: #5a6fd6; }
+        .error { background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 8px; margin-top: 15px; font-weight: 500; }
+        .success { background: #dcfce3; color: #16a34a; padding: 20px; border-radius: 8px; margin-top: 20px; }
+        .success a { color: #16a34a; font-weight: bold; text-decoration: none; font-size: 18px; display: block; margin-top: 8px; }
+        .success a:hover { text-decoration: underline; }
+        .nav-link { display: inline-block; margin-top: 25px; color: #764ba2; text-decoration: none; font-weight: 600; }
+        .nav-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🔗 Capstone Shortener</h1>
+        <form action="/shorten" method="POST">
+            <input type="text" name="url" placeholder="Enter URL (e.g., https://google.com)" required>
+            <button type="submit">Generate Short Link</button>
+        </form>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if short_url %}
+            <div class="success">
+                <span style="font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Your link is ready</span>
+                <a href="{{ short_url }}" target="_blank">{{ short_url }}</a>
+            </div>
+        {% endif %}
+        
+        <a href="/dashboard" class="nav-link">📊 View Analytics Dashboard</a>
+    </div>
+</body>
+</html>
